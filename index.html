@@ -1,331 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ACG Day Planner</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      background-color: #030336;
-      color: #b9b9b9;
-      font-family: 'Open Sans', sans-serif;
-      padding-bottom: 40px;
-      margin: 0;
-    }
-
-    header.jumbotron {
-      background-color: #050548;
-      color: #f1f1f1;
-      text-align: center;
-      padding: 2rem 1rem;
-      border-bottom: 2px solid #00ffff33;
-      box-shadow: 0 0 10px #00ffff55;
-      margin-bottom: 20px;
-    }
-
-    #datetime {
-      color: #00ffff;
-      font-weight: bold;
-    }
-
-    .day-buttons, .top-actions {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .day-buttons button, .top-actions button {
-      background-color: #1a1a3c;
-      color: #00ffff;
-      border: 1px solid #00ffff55;
-      padding: 8px 16px;
-      font-size: 0.9rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .day-buttons button.active {
-      background-color: #00ffff55;
-      color: #fff;
-      border-color: #00ffff;
-    }
-
-    .day-buttons button:hover, .top-actions button:hover {
-      background-color: #00ffff33;
-      color: #ffffff;
-    }
-
-    .search-bar {
-      margin-top: 15px;
-      text-align: center;
-    }
-
-    .search-bar input {
-      padding: 8px;
-      border-radius: 5px;
-      border: none;
-      width: 80%;
-      max-width: 400px;
-      background-color: #2c2c5a;
-      color: #fff;
-    }
-
-    .time-slot {
-      display: flex;
-      align-items: center;
-      margin: 10px 20px;
-      background-color: #1a1a3c;
-      border-left: 5px solid #00ffff99;
-      border-radius: 8px;
-      padding: 10px;
-      box-shadow: 0 0 6px #00ffff22;
-      transition: background-color 0.3s ease;
-    }
-
-    .time-slot.past { opacity: 0.5; }
-    .time-slot.present { background-color: #004d4d; }
-    .time-slot.future { background-color: #0b2b4d; }
-
-    .time {
-      flex: 0 0 100px;
-      color: #ffffff;
-      font-weight: bold;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    textarea.content {
-      flex: 1;
-      background-color: #2c2c5a;
-      border: none;
-      color: #ffffff;
-      padding: 10px;
-      border-radius: 5px;
-      resize: none;
-      font-size: 1rem;
-      height: 50px;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .saveBtn {
-      flex: 0 0 50px;
-      margin-left: 10px;
-      color: #00ffff;
-      cursor: pointer;
-      text-align: center;
-      font-size: 1.3rem;
-      transition: color 0.3s ease, background-color 0.3s ease;
-      user-select: none;
-      padding: 8px 0;
-      border-radius: 5px;
-      position: relative;
-    }
-
-    .saveBtn:hover {
-      color: #ffffff;
-      background-color: #00ffff33;
-    }
-
-    .saveMsg {
-      position: absolute;
-      top: -20px;
-      right: 0;
-      font-size: 0.7rem;
-      color: #00ffcc;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .saveMsg.show { opacity: 1; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Advanced Day Planner</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style_enhanced.css">
 </head>
 <body>
-  <header class="jumbotron">
-    <h1>Work Day Scheduler</h1>
-    <p>A simple day planner app</p>
-    <p>Date/Time: <span id="datetime"></span></p>
-    <div class="day-buttons">
-      <button data-day="Sunday">Sunday</button>
-      <button data-day="Monday">Monday</button>
-      <button data-day="Tuesday">Tuesday</button>
-      <button data-day="Wednesday">Wednesday</button>
-      <button data-day="Thursday">Thursday</button>
-      <button data-day="Friday">Friday</button>
-      <button data-day="Saturday">Saturday</button>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-calendar-alt"></i> Advanced Day Planner
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="todayBtn">Today</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="settingsBtn">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="header-section">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="display-4" id="pageTitle">Today's Schedule</h1>
+                    <p class="lead" id="currentDate"></p>
+                    <p class="text-muted" id="currentTime"></p>
+                </div>
+                <div class="col-md-4">
+                    <div class="weather-widget">
+                        <div id="weatherContainer" class="weather-info">
+                            <p class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading weather...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container-fluid main-content">
+        <div class="row">
+            <!-- Left Sidebar - Task Categories -->
+            <div class="col-lg-3 sidebar">
+                <div class="card">
+                    <div class="card-header bg-gradient-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-list"></i> Categories
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="category-list">
+                            <button class="category-btn active" data-category="all">
+                                <i class="fas fa-inbox"></i> All Tasks
+                                <span class="badge badge-primary" id="totalTasks">0</span>
+                            </button>
+                            <button class="category-btn" data-category="work">
+                                <i class="fas fa-briefcase"></i> Work
+                                <span class="badge badge-info" id="workCount">0</span>
+                            </button>
+                            <button class="category-btn" data-category="personal">
+                                <i class="fas fa-user"></i> Personal
+                                <span class="badge badge-success" id="personalCount">0</span>
+                            </button>
+                            <button class="category-btn" data-category="meeting">
+                                <i class="fas fa-users"></i> Meetings
+                                <span class="badge badge-warning" id="meetingCount">0</span>
+                            </button>
+                            <button class="category-btn" data-category="important">
+                                <i class="fas fa-exclamation-circle"></i> Important
+                                <span class="badge badge-danger" id="importantCount">0</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Stats -->
+                <div class="card mt-3">
+                    <div class="card-header bg-gradient-success text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-chart-pie"></i> Summary
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-item">
+                            <span>Completed</span>
+                            <strong id="completedCount">0</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Remaining</span>
+                            <strong id="remainingCount">0</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Productivity</span>
+                            <strong id="productivityScore">0%</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center - Schedule View -->
+            <div class="col-lg-6">
+                <!-- Add Task Form -->
+                <div class="card add-task-card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">
+                            <i class="fas fa-plus-circle"></i> Add New Task
+                        </h5>
+                        <form id="addTaskForm">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="taskInput" placeholder="Enter task description..." required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="timeInput">Time</label>
+                                        <input type="time" class="form-control" id="timeInput" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="categorySelect">Category</label>
+                                        <select class="form-control" id="categorySelect">
+                                            <option value="work">Work</option>
+                                            <option value="personal">Personal</option>
+                                            <option value="meeting">Meeting</option>
+                                            <option value="important">Important</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="prioritySelect">Priority</label>
+                                        <select class="form-control" id="prioritySelect">
+                                            <option value="low">Low</option>
+                                            <option value="medium" selected>Medium</option>
+                                            <option value="high">High</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" id="taskDetails" placeholder="Task details (optional)" rows="2"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-save"></i> Save Task
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Time Blocks / Schedule -->
+                <div id="scheduleContainer" class="schedule-container mt-4">
+                    <!-- Time blocks will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Right Sidebar - Upcoming & Notes -->
+            <div class="col-lg-3 sidebar">
+                <!-- Upcoming Tasks -->
+                <div class="card">
+                    <div class="card-header bg-gradient-info text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-clock"></i> Upcoming
+                        </h5>
+                    </div>
+                    <div class="card-body" id="upcomingList">
+                        <p class="text-muted text-center">No upcoming tasks</p>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div class="card mt-3">
+                    <div class="card-header bg-gradient-warning text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-sticky-note"></i> Notes
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <textarea id="notesArea" class="form-control" placeholder="Add your notes here..." rows="6"></textarea>
+                        <button class="btn btn-sm btn-warning btn-block mt-2" id="saveNotesBtn">
+                            <i class="fas fa-save"></i> Save Notes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="top-actions">
-      <button id="clearDay"><i class="fas fa-trash"></i> Clear Day</button>
-      <button id="exportData"><i class="fas fa-file-export"></i> Export</button>
-      <button id="importData"><i class="fas fa-file-import"></i> Import</button>
-      <button id="toggleTheme"><i class="fas fa-adjust"></i> Toggle Theme</button>
+
+    <!-- Task Detail Modal -->
+    <div class="modal fade" id="taskModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="taskModalTitle">Task Details</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="taskModalBody">
+                    <!-- Task details will be populated here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="deleteTaskBtn">Delete</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="search-bar">
-      <input type="text" id="searchBox" placeholder="Search notes...">
+
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Settings</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="workStartTime">Work Start Time</label>
+                        <input type="time" class="form-control" id="workStartTime" value="09:00">
+                    </div>
+                    <div class="form-group">
+                        <label for="workEndTime">Work End Time</label>
+                        <input type="time" class="form-control" id="workEndTime" value="17:00">
+                    </div>
+                    <div class="form-group">
+                        <label for="locationInput">Location (for weather)</label>
+                        <input type="text" class="form-control" id="locationInput" placeholder="e.g., New York">
+                    </div>
+                    <div class="form-group">
+                        <label for="themeSelect">Theme</label>
+                        <select class="form-control" id="themeSelect">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="auto">Auto</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveSettingsBtn">Save Settings</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <div id="plannerContainer"></div>
-
-  <script>
-    const startHour = 3;
-    const endHour = 22;
-    let currentDay = localStorage.getItem('lastDay') || null;
-    let darkMode = true;
-    const storageKey = "plannerData";
-
-    function initPlannerData() {
-      let data = JSON.parse(localStorage.getItem(storageKey)) || {};
-      const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-      days.forEach(day => {
-        if (!data[day]) {
-          data[day] = {};
-          for (let h = startHour; h <= endHour; h++) {
-            const hour12 = h % 12 === 0 ? 12 : h % 12;
-            const suffix = h >= 12 ? "PM" : "AM";
-            data[day][`${hour12}${suffix.toLowerCase()}`] = "";
-          }
-        }
-      });
-      localStorage.setItem(storageKey, JSON.stringify(data));
-    }
-
-    function getPlannerData() {
-      return JSON.parse(localStorage.getItem(storageKey));
-    }
-
-    function savePlannerData(data) {
-      localStorage.setItem(storageKey, JSON.stringify(data));
-    }
-
-    function updateDateTime() {
-      document.getElementById('datetime').textContent = new Date().toLocaleString();
-    }
-    setInterval(updateDateTime, 1000);
-    updateDateTime();
-
-    function getTimeClass(hour) {
-      const currentHour = new Date().getHours();
-      if (hour < currentHour) return 'past';
-      if (hour === currentHour) return 'present';
-      return 'future';
-    }
-
-    function renderPlanner(day) {
-      const container = document.getElementById('plannerContainer');
-      container.innerHTML = '';
-      const data = getPlannerData();
-
-      for (let h = startHour; h <= endHour; h++) {
-        const isPM = h >= 12;
-        const hour12 = h % 12 === 0 ? 12 : h % 12;
-        const suffix = isPM ? 'PM' : 'AM';
-        const timeId = `${hour12}${suffix.toLowerCase()}`;
-        const savedValue = data[day][timeId] || '';
-
-        const slot = document.createElement('div');
-        slot.className = `time-slot ${getTimeClass(h)}`;
-
-        const timeDiv = document.createElement('div');
-        timeDiv.className = 'time';
-        timeDiv.textContent = `${hour12}:00 ${suffix}`;
-
-        const textarea = document.createElement('textarea');
-        textarea.className = 'content';
-        textarea.value = savedValue;
-        textarea.addEventListener('input', () => {
-          data[day][timeId] = textarea.value;
-          savePlannerData(data);
-        });
-
-        const saveBtn = document.createElement('div');
-        saveBtn.className = 'saveBtn';
-        saveBtn.innerHTML = '<i class="fas fa-save"></i><span class="saveMsg">Saved!</span>';
-        saveBtn.onclick = function () {
-          data[day][timeId] = textarea.value;
-          savePlannerData(data);
-          const msg = saveBtn.querySelector('.saveMsg');
-          msg.classList.add('show');
-          setTimeout(() => msg.classList.remove('show'), 800);
-        };
-
-        slot.appendChild(timeDiv);
-        slot.appendChild(textarea);
-        slot.appendChild(saveBtn);
-        container.appendChild(slot);
-      }
-    }
-
-    document.querySelectorAll('.day-buttons button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.day-buttons button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentDay = btn.getAttribute('data-day');
-        localStorage.setItem('lastDay', currentDay);
-        renderPlanner(currentDay);
-      });
-    });
-
-    document.getElementById('clearDay').addEventListener('click', () => {
-      if (!currentDay) return;
-      if (confirm(`Clear all entries for ${currentDay}?`)) {
-        const data = getPlannerData();
-        Object.keys(data[currentDay]).forEach(key => data[currentDay][key] = "");
-        savePlannerData(data);
-        renderPlanner(currentDay);
-      }
-    });
-
-    document.getElementById('exportData').addEventListener('click', () => {
-      const data = getPlannerData();
-      const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'plannerData.json';
-      a.click();
-    });
-
-    document.getElementById('importData').addEventListener('click', () => {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = '.json';
-      input.onchange = e => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = event => {
-          const importedData = JSON.parse(event.target.result);
-          savePlannerData(importedData);
-          if (currentDay) renderPlanner(currentDay);
-        };
-        reader.readAsText(file);
-      };
-      input.click();
-    });
-
-    document.getElementById('toggleTheme').addEventListener('click', () => {
-      darkMode = !darkMode;
-      document.body.style.backgroundColor = darkMode ? '#030336' : '#f4f4f4';
-      document.body.style.color = darkMode ? '#b9b9b9' : '#222';
-    });
-
-    document.getElementById('searchBox').addEventListener('input', e => {
-      const query = e.target.value.toLowerCase();
-      document.querySelectorAll('.time-slot').forEach(slot => {
-        const text = slot.querySelector('.content').value.toLowerCase();
-        slot.style.display = text.includes(query) ? 'flex' : 'none';
-      });
-    });
-
-    initPlannerData();
-    if (currentDay) {
-      document.querySelector(`.day-buttons button[data-day="${currentDay}"]`).click();
-    } else {
-      document.querySelectorAll('.day-buttons button')[new Date().getDay()].click();
-    }
-  </script>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="script_enhanced.js"></script>
 </body>
 </html>
